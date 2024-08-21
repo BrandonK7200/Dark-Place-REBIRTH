@@ -44,7 +44,7 @@ function character:init()
     -- Base stats (saved to the save file)
     self.stats = {
         health = 120,
-        attack = 12,
+        attack = 13,
         defense = 2,
         magic = 1
     }
