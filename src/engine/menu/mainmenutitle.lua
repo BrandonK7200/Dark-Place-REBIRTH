@@ -95,7 +95,6 @@ function MainMenuTitle:init(menu)
         "Run this on a\nWii you coward",
         "Right behind you.",
         "Have a break,\nhave a legally distinct\nGitGog",
-        "Try FREEWLLY",
         "FRIEND INSIDE ME",
         "VERY, VERY\nINTERESTING",
         "Smells like\nsplash text",
