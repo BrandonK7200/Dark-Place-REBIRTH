@@ -10,7 +10,7 @@ return {
   tilewidth = 40,
   tileheight = 40,
   nextlayerid = 7,
-  nextobjectid = 17,
+  nextobjectid = 19,
   properties = {
     ["music"] = "prejoker"
   },
@@ -290,6 +290,39 @@ return {
           properties = {
             ["map"] = "room1",
             ["marker"] = "jeviil"
+          }
+        },
+        {
+          id = 17,
+          name = "interactable",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 120,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["solid"] = true,
+            ["text1"] = "* This elevator is fully functional. ",
+            ["text2"] = "* However, there is no reason to use it, because nobody has made any other rooms."
+          }
+        },
+        {
+          id = 18,
+          name = "transition",
+          type = "",
+          shape = "rectangle",
+          x = 880,
+          y = 80,
+          width = 80,
+          height = 40,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["map"] = "",
+            ["marker"] = ""
           }
         }
       }

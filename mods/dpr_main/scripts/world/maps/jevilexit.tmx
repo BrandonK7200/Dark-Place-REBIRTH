@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="48" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="17">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="48" height="20" tilewidth="40" tileheight="40" infinite="0" nextlayerid="7" nextobjectid="19">
  <editorsettings>
   <export target="jevilexit.lua" format="lua"/>
  </editorsettings>
@@ -79,6 +79,19 @@
    <properties>
     <property name="map" value="room1"/>
     <property name="marker" value="jeviil"/>
+   </properties>
+  </object>
+  <object id="17" name="interactable" x="880" y="120" width="80" height="40">
+   <properties>
+    <property name="solid" type="bool" value="true"/>
+    <property name="text1" value="* This elevator is fully functional. "/>
+    <property name="text2" value="* However, there is no reason to use it, because nobody has made any other rooms."/>
+   </properties>
+  </object>
+  <object id="18" name="transition" x="880" y="80" width="80" height="40">
+   <properties>
+    <property name="map" value=""/>
+    <property name="marker" value=""/>
    </properties>
   </object>
  </objectgroup>
