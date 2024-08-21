@@ -8,7 +8,7 @@ local DamageNumber, super = Class(Object)
 --    "msg": message sprite name ("down", "frozen", "lost", "max", "mercy", "miss", "recruit", and "up")
 
 function DamageNumber:init(type, arg, x, y, color)
-    super:init(self, type, arg, x, y, color)
+    super.init(self, x, y)
 
     self:setOrigin(1, 0)
 

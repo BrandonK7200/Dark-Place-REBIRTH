@@ -382,8 +382,9 @@ end
 --- Adds (or removes) mercy from this enemy
 ---@param amount number
 function EnemyBattler:addMercy(amount)
-    if self.mercy >= 100 and amount > 0 then
-        -- We're already at full mercy; do nothing.
+    if (amount >= 0 and self.mercy >= 100) or (amount < 0 and self.mercy <= 0) then
+        -- We're already at full mercy and trying to add more; do nothing.
+        -- Also do nothing if trying to remove from an empty mercy bar.
         return
     end
 
@@ -404,16 +405,20 @@ function EnemyBattler:addMercy(amount)
     end
 
     if Game:getConfig("mercyMessages") then
-        if amount > 0 then
-            local pitch = 0.8
-            if amount < 99 then pitch = 1 end
-            if amount <= 50 then pitch = 1.2 end
-            if amount <= 25 then pitch = 1.4 end
+        if amount == 0 then
+            self:statusMessage("msg", "miss")
+        else
+            if amount > 0 then
+                local pitch = 0.8
+                if amount < 99 then pitch = 1 end
+                if amount <= 50 then pitch = 1.2 end
+                if amount <= 25 then pitch = 1.4 end
 
-            local src = Assets.playSound("mercyadd", 0.8)
-            src:setPitch(pitch)
+                local src = Assets.playSound("mercyadd", 0.8)
+                src:setPitch(pitch)
+            end
+            self:statusMessage("mercy", amount)
         end
-        self:statusMessage("mercy", amount)
     end
 end
 

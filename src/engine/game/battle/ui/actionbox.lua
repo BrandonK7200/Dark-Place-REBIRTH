@@ -52,7 +52,7 @@ function ActionBox:createButtons()
     self.buttons = {}
 
     local btn_types = {"fight", "act", "magic", "item", "spare", "defend"}
-	
+
 	if self.battler.chara:hasSkills() then
 		btn_types = {"fight", "skill", "item", "spare", "defend"}
 	else

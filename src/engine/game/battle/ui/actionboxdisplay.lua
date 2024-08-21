@@ -64,7 +64,7 @@ function ActionBoxDisplay:draw()
     Draw.setColor(color)
     love.graphics.print(self.actbox.battler.chara:getStat("health"), 205 - string_width, 9 - self.actbox.data_offset)
 
-    super.super.draw(self)
+    super.draw(self)
 end
 
 return ActionBoxDisplay
