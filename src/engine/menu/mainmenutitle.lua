@@ -17,100 +17,10 @@ function MainMenuTitle:init(menu)
     self.logo = Assets.getTexture("kristal/title_logo_shadow")
 
     self.selected_option = 1
-
-    self.splash_list = {
-        "Also try Deltarune!",
-        "Dess wuz here",
-        "Also try Deoxynn!",
-        "Also try Starrune!",
-        "Now with 50% less\nRalsei!",
-        "Now with extra\ndarkness!",
-        "FUCK YOU, CYBER CITY!!",
-        ":]",
-        "Hey all! Scott here!",
-        "Now with 50% more\nSpamton!",
-        "May contain nuts!",
-        "More than -1 sold!",
-        "It's a game!",
-        "Singleplayer!",
-        "Keyboard\ncompatible!",
-        "Open source!",
-        "Not on Steam!",
-        "Pixels!",
-        "6% bug free!",
-        "Absolutely memes!",
-        "Indie!",
-        "Now in 2D!",
-        "[Guaranteed]!",
-        "Random splash!",
-        "Fear of Anxiety!",
-        "SMW forever!",
-        "Don't look directly\nat the bugs!",
-        "Kinda like Pokemon!",
-        "Has an ending\n...planned!",
-        "Deja vu!",
-        "Deja vu!",
-        "Mmmph, mmph!",
-        "I have a PR.",
-        "Fixing Magical Glass!",
-        "LOVE 10 + 1 = 11!",
-        "Woah.",
-        "Honey, I dug the beans!‌",
-        "Home-made!",
-        "There's <<a dog\non ,my\nkeyboard!~",
-        "RIBBIT!",
-        "Potassium",
-        "Can You Really Call\nThis Splash Text? I\nDidn't Gain Something\nFrom Reading It\nOr Anything.",
-        "Crazy?\nI was crazy once.",
-        "All toasters toast\ntoast!",
-        "Also try Ribbit!",
-        "spring time\nback to school",
-        "try to withstand\nthe sun's life-giving\nrays.",
-        "sweep a leaf\nsweep away a troubles",
-        "cold outside but stay\nwarm inside of you",
-        "And in that light,\nI find deliverence",
-        "The place that is\nbelieved to be dark",
-        "Everything is going\nto be fine",
-        "No one is around\nto help",
-        "Beep Boop",
-        "I've come to make\nan announcement!",
-        "There is no crashes\nin Dark Place",
-        "I had more splash\nideas but I forgot\nthem",
-        "Smile",
-        "Oh hi :D",
-        "Man I love this clock",
-        "Nice Strike!",
-        "May include\nDeltarune content",
-        "May include bones",
-        "May include flesh",
-        "Good times only",
-        "I found a dog.",
-        "I lost the dog.",
-        "Why is there\n2 dogs??",
-        "Dogs!!",
-        "Gangnam Style",
-        "Do not ask for advice",
-        "Subscribe to\nBikini Spamton",
-        "Welcome to the woods",
-        "Run this on a\nWii you coward",
-        "Right behind you.",
-        "Have a break,\nhave a legally distinct\nGitGog",
-        "FRIEND INSIDE ME",
-        "VERY, VERY\nINTERESTING",
-        "Smells like\nsplash text",
-        "human... i remember\nyou're genocides...",
-        "Help! They're forcing\nme to make\nsplash texts!",
-        "Knockback Bros.\nbut like not\nadvanced",
-    }
-    self.splash = Utils.pick(self.splash_list)
-
-    self.splash_timer = 0
 end
 
 function MainMenuTitle:update()
     super.update(self)
-
-    self.splash_timer = self.splash_timer + DT
 end
 
 function MainMenuTitle:registerEvents()
@@ -206,10 +116,6 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
     self.menu.heart_target_y = 238 + (self.selected_option - 1) * 32
 end
 
-function MainMenuTitle:update()
-    self.splash_timer = self.splash_timer + DT
-end
-
 function MainMenuTitle:draw()
     local logo_img = self.menu.selected_mod and self.menu.selected_mod.logo or self.logo
 
@@ -219,16 +125,6 @@ function MainMenuTitle:draw()
     for i, option in ipairs(self.options) do
         Draw.printShadow(option[2], 215, 219 + 32 * (i - 1))
     end
-
-    love.graphics.setColor(1, 1, 0, 1)
-    local font = Assets.getFont("main")
-    love.graphics.setFont(font)
-    local scale = 1 + math.sin(self.splash_timer) / 10
-    local splash_angle, splash_x, splash_y
-    splash_angle = math.rad(-16)
-    splash_x, splash_y = SCREEN_WIDTH/2+120, 105+48
-    love.graphics.setColor({1, 1, 0}, 1)
-    love.graphics.print(self.splash, splash_x, splash_y, splash_angle, scale, scale, font:getWidth(self.splash)/2, 0)
 end
 
 -------------------------------------------------------------------------------
