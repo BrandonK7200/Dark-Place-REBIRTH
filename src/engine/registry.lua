@@ -30,6 +30,7 @@
 ---@field events table<string, Event|Object>
 ---@field controllers table<string, Event|Object>
 ---@field shops table<string, Shop>
+---@field minigames table<string, MinigameHandler>
 ---
 local Registry = {}
 local self = Registry
@@ -60,7 +61,8 @@ Registry.paths = {
     ["maps"]             = "world/maps",
     ["events"]           = "world/events",
     ["controllers"]      = "world/controllers",
-    ["shops"]            = "shops"
+    ["shops"]            = "shops",
+    ["minigames"]        = "minigames"
 }
 
 ---@param preload boolean?
@@ -97,6 +99,7 @@ function Registry.initialize(preload)
         Registry.initEvents()
         Registry.initControllers()
         Registry.initShops()
+        Registry.initMinigames()
 
         Kristal.callEvent(KRISTAL_EVENT.onRegistered)
     end
@@ -464,6 +467,23 @@ function Registry.createShop(id, ...)
     end
 end
 
+---@param id string
+---@return Minigame|nil
+function Registry.getMinigame(id)
+    return self.minigames[id]
+end
+
+---@param id string
+---@param ... any
+---@return Minigame
+function Registry.createMinigame(id, ...)
+    if self.minigames[id] then
+        return self.minigames[id](...)
+    else
+        error("Attempt to create non existent minigame \"" .. tostring(id) .. "\"")
+    end
+end
+
 -- Register Functions --
 
 ---@param id string
@@ -602,6 +622,12 @@ end
 ---@param class Shop
 function Registry.registerShop(id, class)
     self.shops[id] = class
+end
+
+---@param id string
+---@param class Minigame
+function Registry.registerMinigame(id, class)
+    self.minigames[id] = class
 end
 
 -- Internal Functions --
@@ -872,6 +898,18 @@ function Registry.initShops()
     end
 
     Kristal.callEvent(KRISTAL_EVENT.onRegisterShops)
+end
+
+function Registry.initMinigames()
+    self.minigames = {}
+
+    for _,path,minigame in self.iterScripts(Registry.paths["minigames"]) do
+        assert(minigame ~= nil, '"minigames/'..path..'.lua" does not return value')
+        minigame.id = minigame.id or path
+        self.registerMinigame(minigame.id, minigame)
+    end
+
+    Kristal.callEvent(KRISTAL_EVENT.onRegisterMinigames)
 end
 
 ---@param base_path string
