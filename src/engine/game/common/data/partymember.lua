@@ -763,7 +763,7 @@ end
 
 function PartyMember:addCombo(combo)
     if type(combo) == "string" then
-        combo = Mod:createCombo(combo)
+        combo = Registry.createCombo(combo)
     end
     table.insert(self.combos, combo)
 end
@@ -852,7 +852,7 @@ function PartyMember:getSkills()
 		table.insert(skills, {"ACT", "Do all\nsorts of\nthings", nil, function() Game.battle:setState("ENEMYSELECT", "ACT") end})
 	end
 	if self:hasSpells() then
-		table.insert(skills, {(Kristal.getLibConfig("library_main", "magic_name")) or "Magic", Kristal.getLibConfig("library_main", "magic_description") or "Cast\nSpells", color, function()
+		table.insert(skills, {"Magic", "Cast\nSpells", color, function()
             Game.battle:clearMenuItems()
 
             -- First, register X-Actions as menu items.
