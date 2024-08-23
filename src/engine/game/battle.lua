@@ -955,7 +955,7 @@ function Battle:processCharacterActions()
 
     self.current_action_index = 1
 
-    local order = {"ACT", {"SPELL", "ITEM", "SPARE"}}
+    local order = {"ACT", {"SPELL", "ITEM", "SPARE", "COMBO"}}
 
     for lib_id,_ in Kristal.iterLibraries() do
         order = Kristal.libCall(lib_id, "getActionOrder", order, self.encounter) or order
@@ -1263,8 +1263,16 @@ function Battle:processAction(action)
         action.data:onStart(battler, action.target)
 
         return false
+	
+	elseif action.action == "COMBO" then
+        self.battle_ui:clearEncounterText()
 
-    elseif action.action == "ITEM" then
+        -- The combo itself handles the animation and finishing
+        action.data:onStart(battler, action.target)
+
+        return false
+	
+	elseif action.action == "ITEM" then
         local item = action.data
         if item.instant then
             self:finishAction(action)
@@ -3035,6 +3043,8 @@ function Battle:onKeyPressed(key)
                 self:pushAction("SPELL", self.enemies_index[self.selected_enemy], self.selected_spell)
             elseif self.state_reason == "ITEM" then
                 self:pushAction("ITEM", self.enemies_index[self.selected_enemy], self.selected_item)
+            elseif self.state_reason == "COMBO" then
+                self:pushAction("COMBO", self.enemies_index[self.selected_enemy], self.selected_combo)
             else
                 self:nextParty()
             end
@@ -3049,6 +3059,8 @@ function Battle:onKeyPressed(key)
                 self:setState("MENUSELECT", "SPELL")
             elseif self.state_reason == "ITEM" then
                 self:setState("MENUSELECT", "ITEM")
+            elseif self.state_reason == "COMBO" then
+                self:setState("MENUSELECT", "COMBO")
             else
                 self:setState("ACTIONSELECT", "CANCEL")
             end
@@ -3101,6 +3113,8 @@ function Battle:onKeyPressed(key)
                 self:pushAction("SPELL", self.party[self.current_menu_y], self.selected_spell)
             elseif self.state_reason == "ITEM" then
                 self:pushAction("ITEM", self.party[self.current_menu_y], self.selected_item)
+            elseif self.state_reason == "COMBO" then
+                self:pushAction("COMBO", self.party[self.current_menu_y], self.selected_combo)
             else
                 self:nextParty()
             end
