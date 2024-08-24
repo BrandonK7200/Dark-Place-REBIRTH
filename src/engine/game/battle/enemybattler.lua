@@ -742,6 +742,10 @@ function EnemyBattler:onDodge(battler, attacked) end
 ---@param damage?    number
 ---@param battler?   PartyBattler
 function EnemyBattler:onDefeat(damage, battler)
+    if self.killable and Game:getFlag("can_kill") then
+        self:onDefeatFatal(damage, battler)
+        return
+    end
     if self.exit_on_defeat then
         self:onDefeatRun(damage, battler)
     else
