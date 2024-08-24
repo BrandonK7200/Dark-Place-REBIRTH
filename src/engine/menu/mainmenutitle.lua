@@ -40,6 +40,7 @@ function MainMenuTitle:onEnter(old_state)
     if TARGET_MOD then
         self.options = {
             {"play",    self.has_target_saves and "Load game" or "Start game"},
+            {"modselect", "Load DLC"},
             {"modfolder", "Open DLC folder"},
             {"options", "Options"},
             {"credits", "Credits"},
@@ -81,6 +82,11 @@ function MainMenuTitle:onKeyPressed(key, is_repeat)
                 self.menu:setState("FILESELECT")
             end
 
+        elseif option == "modselect" then
+            self.menu:setState("MODSELECT")
+            if MainMenu.mod_list:getSelectedMod() and MainMenu.mod_list:getSelectedMod().soulColor then
+                MainMenu.heart.color = MainMenu.mod_list:getSelectedMod().soulColor
+            end
         elseif option == "modfolder" then
             love.system.openURL("file://"..love.filesystem.getSource().."/mods")
 
